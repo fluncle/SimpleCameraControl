@@ -37958,11 +37958,12 @@ MonoBehaviour:
   _parameter:
     trackTarget: {fileID: 2139185149}
     position: {x: 27.5, y: 0.5, z: 2}
-    angles: {x: 10, y: -130, z: 0}
+    angles: {x: 15, y: -130, z: 0}
     distance: 4
     fieldOfView: 45
     offsetPosition: {x: 0, y: 1.2, z: 0}
     offsetAngles: {x: 0, y: 0, z: 0}
+  _useMouseRoll: 0
 --- !u!4 &1693627278
 Transform:
   m_ObjectHideFlags: 0
@@ -37970,7 +37971,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693627276}
-  m_LocalRotation: {x: 0.036833603, y: -0.90285903, z: 0.07898992, w: 0.42101005}
+  m_LocalRotation: {x: 0.055162754, y: -0.89855427, z: 0.118296914, w: 0.41900268}
   m_LocalPosition: {x: 27.5, y: 0.5, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

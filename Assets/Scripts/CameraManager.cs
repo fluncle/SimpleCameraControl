@@ -17,6 +17,21 @@ public class CameraManager : MonoBehaviour
     [SerializeField]
     private Parameter _parameter;
 
+    [SerializeField]
+    private bool _useMouseRoll;
+
+    private void Update()
+    {
+        if(_useMouseRoll)
+        {
+            Vector3 diffAngles = new Vector3(
+                x: -Input.GetAxis("Mouse Y"),
+                y: Input.GetAxis("Mouse X")
+            ) * 5f;
+            _parameter.angles += diffAngles;
+        }
+    }
+
     private void LateUpdate()
     {
         if(_parent == null || _child == null || _camera == null)
