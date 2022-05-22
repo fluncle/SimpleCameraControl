@@ -50,6 +50,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private Image _cursor;
+
+    [SerializeField]
+    private bool _useMouseRoll;
     #endregion // Variables Camera
 
     private void Awake()
@@ -193,13 +196,14 @@ public class PlayerController : MonoBehaviour
     private void ControlCamera()
     {
         // デフォルト／エイムモード時のみマウス操作によるカメラ回転を受け付ける
-        if((_cameraModeType == CameraModeType.Default || _cameraModeType == CameraModeType.Aim) &&
+        if(_useMouseRoll &&
+           (_cameraModeType == CameraModeType.Default || _cameraModeType == CameraModeType.Aim) &&
            (_cameraSeq == null || !_cameraSeq.IsPlaying()))
         {
             Vector3 diffAngles = new Vector3(
                 x: -Input.GetAxis("Mouse Y"),
                 y: Input.GetAxis("Mouse X")
-            ) * 5f;
+            ) * 3f;
             _cameraMgr.Param.angles += diffAngles;
 
             // エイムモード時はカメラはイージング無しで追いかけさせる
