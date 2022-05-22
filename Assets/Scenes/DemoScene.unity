@@ -2051,10 +2051,10 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
-    m_Resolution: 3
+    m_Type: 2
+    m_Resolution: 2
     m_CustomResolution: -1
-    m_Strength: 0.809
+    m_Strength: 0.8
     m_Bias: 0
     m_NormalBias: 0
     m_NearPlane: 0.1
@@ -31329,7 +31329,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1382367436}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 371864624}
@@ -37958,10 +37958,10 @@ MonoBehaviour:
   _parameter:
     trackTarget: {fileID: 2139185149}
     position: {x: 27.5, y: 0.5, z: 2}
-    angles: {x: 0, y: -130, z: 0}
+    angles: {x: 10, y: -130, z: 0}
     distance: 4
     fieldOfView: 45
-    offsetPosition: {x: 0, y: 1, z: 0}
+    offsetPosition: {x: 0, y: 1.2, z: 0}
     offsetAngles: {x: 0, y: 0, z: 0}
 --- !u!4 &1693627278
 Transform:
@@ -37970,7 +37970,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693627276}
-  m_LocalRotation: {x: 0, y: -0.9063078, z: 0, w: 0.42261824}
+  m_LocalRotation: {x: 0.036833603, y: -0.90285903, z: 0.07898992, w: 0.42101005}
   m_LocalPosition: {x: 27.5, y: 0.5, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -47728,11 +47728,38 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6981374108352111177, guid: 247a46b461ccc9842b98ac536dd67600, type: 3}
   m_PrefabInstance: {fileID: 2139104020}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2139185147 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2066896392038628118, guid: 45288819fde2143449a96207b14db0bb, type: 3}
+  m_PrefabInstance: {fileID: 270463292}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2139185148 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2066896392029128874, guid: 45288819fde2143449a96207b14db0bb, type: 3}
+  m_PrefabInstance: {fileID: 270463292}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2139185149 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2066896392038131574, guid: 45288819fde2143449a96207b14db0bb, type: 3}
   m_PrefabInstance: {fileID: 270463292}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2139185150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139185147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5f8cb235589647c4a74c3279e6e7a3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 2139185148}
+  _camera: {fileID: 1382367439}
+  _terrain: {fileID: 2023198703}
+  _speed: 5
+  _rollSpeed: 360
 --- !u!1001 &2139858833
 PrefabInstance:
   m_ObjectHideFlags: 0
