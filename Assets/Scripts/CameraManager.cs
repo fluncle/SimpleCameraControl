@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+// シーンを実行しなくてもカメラワークが反映されるよう、ExecuteInEditModeを付与
 [ExecuteInEditMode]
 public class CameraManager : MonoBehaviour
 {
@@ -25,9 +26,15 @@ public class CameraManager : MonoBehaviour
 
         if(_parameter.trackTarget != null)
         {
-            _parameter.position = _parameter.trackTarget.position;
+            // 被写体がTransformで指定されている場合、positionパラメータに座標を上書き
+            _parameter.position = Vector3.Lerp(
+                a: _parameter.position,
+                b: _parameter.trackTarget.position,
+                t: Time.deltaTime * 4f
+            );
         }
 
+        // パラメータを各種オブジェクトに反映
         _parent.position = _parameter.position;
         _parent.eulerAngles = _parameter.angles;
 
@@ -40,6 +47,7 @@ public class CameraManager : MonoBehaviour
         _camera.transform.localEulerAngles = _parameter.offsetAngles;
     }
 
+     /// <summary> カメラのパラメータ </summary>
     [Serializable]
     public class Parameter
     {
