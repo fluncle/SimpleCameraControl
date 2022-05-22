@@ -23,7 +23,12 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 moveVector = GetMoveVector();
         bool isMove = moveVector != Vector3.zero;
-        _animator?.SetBool(IS_MOVE_HASH, isMove);
+
+        if(_animator != null)
+        {
+            _animator?.SetBool(IS_MOVE_HASH, isMove);
+        }
+
         if(isMove)
         {
             transform.position += moveVector * Time.deltaTime * _speed;
