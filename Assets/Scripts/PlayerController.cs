@@ -21,27 +21,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        Vector3 moveVector = GetMoveVector();
-        bool isMove = moveVector != Vector3.zero;
-
-        if(_animator != null)
-        {
-            _animator?.SetBool(IS_MOVE_HASH, isMove);
-        }
-
-        if(isMove)
-        {
-            transform.position += moveVector * Time.deltaTime * _speed;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(moveVector.x, 0f, moveVector.z));
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, Time.deltaTime * _rollSpeed);
-            // テレインに沿って高さを合わせる
-            if(_terrain != null)
-            {
-                Vector3 position = transform.position;
-                position.y = _terrain.SampleHeight(position);
-                transform.position = position;
-            }
-        }
+        ControlMove();
     }
 
     private Vector3 GetMoveVector()
@@ -65,5 +45,30 @@ public class PlayerController : MonoBehaviour
         }
         Quaternion cameraRotate = Quaternion.Euler(0f, _camera.eulerAngles.y, 0f);
         return cameraRotate * moveVector.normalized;
+    }
+
+    private void ControlMove()
+	{
+        Vector3 moveVector = GetMoveVector();
+        bool isMove = moveVector != Vector3.zero;
+
+        if(_animator != null)
+        {
+            _animator?.SetBool(IS_MOVE_HASH, isMove);
+        }
+
+        if(isMove)
+        {
+            transform.position += moveVector * Time.deltaTime * _speed;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(moveVector.x, 0f, moveVector.z));
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, Time.deltaTime * _rollSpeed);
+            // テレインに沿って高さを合わせる
+            if(_terrain != null)
+            {
+                Vector3 position = transform.position;
+                position.y = _terrain.SampleHeight(position);
+                transform.position = position;
+            }
+        }
     }
 }
