@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,9 +20,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float _rollSpeed = 360f;
 
+    private void Awake()
+    {
+        _defaultCamParam = _cameraMgr.Param.Clone();
+    }
+
     private void Update()
     {
         ControlMove();
+        ControlCamera();
     }
 
     private Vector3 GetMoveVector()
@@ -69,6 +76,75 @@ public class PlayerController : MonoBehaviour
                 position.y = _terrain.SampleHeight(position);
                 transform.position = position;
             }
+        }
+    }
+
+    [SerializeField]
+    private CameraManager _cameraMgr;
+
+    [SerializeField]
+    private bool _useMouseRoll;
+
+    private bool _isLookItem;
+
+    private CameraManager.Parameter _defaultCamParam;
+
+    [SerializeField]
+    private CameraManager.Parameter _itemCamParam;
+
+    private Sequence _cameraSeq;
+
+    private void SwitchCamera()
+    {
+        _isLookItem = !_isLookItem;
+        if(!_isLookItem)
+        {
+            _defaultCamParam.position = _defaultCamParam.trackTarget.position;
+            _defaultCamParam.angles = new Vector3(15f, transform.eulerAngles.y, 0f);
+        }
+
+        _cameraMgr.Param.trackTarget = null;
+
+        _cameraSeq?.Kill();
+        _cameraSeq = DOTween.Sequence();
+        CameraManager.Parameter startCamParam = _cameraMgr.Param.Clone();
+        _cameraSeq.Append(DOTween.To(() => 0f, t =>
+        {
+            if(_isLookItem)
+            {
+                CameraManager.Parameter.Lerp(startCamParam, _itemCamParam, t, _cameraMgr.Param);
+            }
+            else
+            {
+                CameraManager.Parameter.Lerp(startCamParam, _defaultCamParam, t, _cameraMgr.Param);
+            }
+        }, 1f, 2f).SetEase(Ease.OutQuart));
+
+        _cameraSeq.OnUpdate(() =>
+        {
+            if(!_isLookItem) CameraManager.UpdateTrackTargetBlend(_defaultCamParam);
+        });
+
+        _cameraSeq.AppendCallback(() =>
+        {
+            _cameraMgr.Param.trackTarget = _isLookItem ? _itemCamParam.trackTarget : _defaultCamParam.trackTarget;
+        });
+    }
+
+    private void ControlCamera()
+    {
+        if(_useMouseRoll && !_isLookItem && (_cameraSeq == null || !_cameraSeq.IsPlaying()))
+        {
+            Vector3 diffAngles = new Vector3(
+                x: -Input.GetAxis("Mouse Y"),
+                y: Input.GetAxis("Mouse X")
+            ) * 5f;
+            _cameraMgr.Param.angles += diffAngles;
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        {
+            SwitchCamera();
         }
     }
 }
